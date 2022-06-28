@@ -12,7 +12,9 @@ db.on("query", ({ sql, bindings }) => {
     console.log(sql, bindings);
 });
 
-export const companyLoader = new DataLoader(async (companyIds) => {
-    console.log("companyLoader", companyIds);
-    return await db.select().from("companies").whereIn("id", companyIds);
-});
+export function createCompanyLoader() {
+    return new DataLoader(async (companyIds) => {
+        console.log("companyLoader", companyIds);
+        return await db.select().from("companies").whereIn("id", companyIds);
+    });
+}
